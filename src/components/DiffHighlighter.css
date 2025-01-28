@@ -1,0 +1,139 @@
+.diff-container {
+    border-radius: 8px;
+    overflow: hidden;
+    overflow-y: auto;
+    max-height: 200px;
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.diff-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.diff-item {
+    padding: 2px 0;
+    margin: 5px 2px;
+    border-left: 4px solid;
+    border-radius: 4px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.diff-item:hover {
+    transform: translateX(4px);
+}
+
+.diff-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
+.diff-icon {
+    font-size: 0.9em;
+}
+
+.diff-type {
+    font-size: 0.8em;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: #f0f0f0;
+    margin-left: auto;
+}
+
+.diff-values {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 2px;
+    background: #f8f8f8;
+    border-radius: 4px;
+}
+
+.diff-old,
+.diff-new {
+    padding: 6px;
+    border-radius: 4px;
+    text-align: center;
+    max-width: 100px;
+    word-wrap: break-word;
+}
+
+.diff-old {
+    background: #fff0f0;
+    color: #cc0000;
+}
+
+.diff-new {
+    background: #f0fff0;
+    color: #00aa00;
+}
+
+.diff-arrow {
+    margin: 0 8px;
+    color: #666;
+}
+
+/* 类型特定样式 */
+.diff-item.added {
+    border-color: #00c853;
+    background: #f0fff4;
+}
+
+.diff-item.removed {
+    border-color: #ff1744;
+    background: #fff5f5;
+}
+
+.diff-item.changed {
+    border-color: #ffc400;
+    background: #fffaf0;
+}
+
+.diff-item.unchanged {
+    border-left: 3px solid #94a3b8;
+    background: #f8fafc;
+    .diff-unchanged-value {
+        height: 2px;
+    }
+}
+
+.diff-added-value {
+    color: #00c853;
+    padding-left: 24px;
+    position: relative;
+    max-width: 200px;
+    word-wrap: break-word;
+}
+
+.diff-removed-value {
+    color: #ff1744;
+    padding-left: 24px;
+    max-width: 180px;
+    word-wrap: break-word;
+    position: relative;
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+/* 类型标签文本 */
+.diff-item.added .diff-type {
+    color: #00c853;
+}
+
+.diff-item.removed .diff-type {
+    color: #ff1744;
+}
+
+.diff-item.changed .diff-type {
+    color: #ffc400;
+}
+
+.diff-item.unchanged .diff-type {
+    background: #e2e8f0;
+    color: #475569;
+}
