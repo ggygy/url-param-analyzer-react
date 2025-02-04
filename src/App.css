@@ -1,7 +1,7 @@
 /* 基础容器样式 */
 .url-analyzer-container {
   width: 100%;
-  min-width: 280px;
+  min-width: 320px;
   max-width: 600px;
   margin: 0;
   padding: 0;
@@ -12,7 +12,7 @@
 
 .params-section {
   display: flex;
-  min-width: 280px;
+  min-width: 320px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -48,12 +48,24 @@
 
 .url-input {
   flex: 1;
+  color: #fff;
   margin: 0 15px;
-  padding: 2px;
-  border: 1px solid #e2e8f0;
+  padding: 3px 2px;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 14px;
-  background-color: #2f2f2f;
+  background-color: #9ab1ce;
+  transition: border-color 0.2s;
+}
+
+.url-input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.url-input::placeholder {
+  color: #fff;
+  opacity: 0.7;
 }
 
 .filter-group {

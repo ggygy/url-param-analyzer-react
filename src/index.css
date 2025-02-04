@@ -16,13 +16,13 @@
   --danger-color: #ef4444;
   --text-primary: #1f2937;
   --border-color: #e5e7eb;
-  --bg-hover: #f9fafb;
+  --bg-hover: #e5e5e5;
 }
 
 body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 280px;
+  min-width: 320px;
   max-height: 100vh;
 }

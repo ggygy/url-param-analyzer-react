@@ -67,8 +67,6 @@ export const ParamList = ({ url, onChange }: ParamListProps) => {
   };
 
   const handleAddParam = () => {
-    console.log('newParam:', newParam);
-    
     if (newParam.key && newParam.value) {
       const newParams = [...params, newParam];
       setParams(newParams);
@@ -130,7 +128,7 @@ export const ParamList = ({ url, onChange }: ParamListProps) => {
                   </button>
                 </>
               ) : (
-                <span>{editValues[key]}</span>
+                <span className='edit-value'>{editValues[key]}</span>
               )}
             </div>
           </div>
