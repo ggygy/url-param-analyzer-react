@@ -126,8 +126,20 @@
 
 .edit-value {
     width: 100%;
-    white-space: wrap;
-    word-wrap: break-word;
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    -webkit-line-clamp: 3;
+    -moz-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    line-height: 1.4;
+    max-height: calc(1.4em * 3);
 }
 
 /* 输入框样式 */

@@ -52,15 +52,20 @@
     padding: 2px;
     background: #f8f8f8;
     border-radius: 4px;
+    width: 100%;
 }
 
 .diff-old,
 .diff-new {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 6px;
     border-radius: 4px;
-    text-align: center;
-    max-width: 100px;
+    width: 100%;
+    min-width: 0; /* 防止内容溢出 */
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 .diff-old {

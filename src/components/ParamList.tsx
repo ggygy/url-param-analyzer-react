@@ -128,7 +128,7 @@ export const ParamList = ({ url, onChange }: ParamListProps) => {
                   </button>
                 </>
               ) : (
-                <span className='edit-value'>{editValues[key]}</span>
+                <div className='edit-value'>{editValues[key]}</div>
               )}
             </div>
           </div>
