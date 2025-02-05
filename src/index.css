@@ -23,6 +23,6 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  max-height: 100vh;
+  min-width: 360px;
+  max-height: 140vh;
 }

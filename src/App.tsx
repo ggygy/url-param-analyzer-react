@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useChromeTabs } from './hooks/useChromeTabs';
-import { ParamList } from './components/ParamList';
-import { DiffHighlighter, DiffType } from './components/DiffHighlighter';
+import { ParamList } from './components/ParamList/ParamList';
+import { DiffHighlighter, DiffType } from './components/DiffHighlighter/DiffHighlighter';
 import './App.css';
+import Header from './components/Header/Header';
 
 const App = () => {
   const { currentTab } = useChromeTabs();
@@ -11,6 +12,7 @@ const App = () => {
 
   return (
     <div className="url-analyzer-container">
+      <Header />
       <section className="params-section">
         <div className="section-title">
           <span className="title-icon">🔍</span>

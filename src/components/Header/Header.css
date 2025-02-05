@@ -1,0 +1,76 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px;
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
+    .header-title {
+        font-size: 1rem;
+        color: #3264ff;
+        font-weight: 700;
+        padding: 1px;
+    }
+}
+
+.settings {
+    display: flex;
+    position: absolute;
+    right: 5px;
+    align-items: center;
+}
+
+.setting-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.setting-toggle input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.setting-label {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.settings-icon {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.settings-popup {
+    position: absolute;
+    min-width: 200px;
+    min-height: 180px;
+    top: 2rem;
+    right: 1rem;
+    background-color: white;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.settings-popup .setting-toggle {
+    margin-bottom: 0.5rem;
+}
+
+.clear-cache-button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.clear-cache-button:hover {
+    background-color: #c82333;
+}

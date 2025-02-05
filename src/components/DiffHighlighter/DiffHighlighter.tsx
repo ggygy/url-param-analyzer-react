@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getDiff } from '../utils/getDiff';
+import { getDiff } from '../../utils/getDiff';
 import './DiffHighlighter.css';
 
 export type DiffType = 'added' | 'removed' | 'changed' | 'unchanged';
@@ -77,11 +77,11 @@ export const DiffHighlighter = ({ url1, url2, filter = [] }: DiffHighlighterProp
                         </div>
                     )}
 
-                    {type === 'unchanged' && (
+                    {/* {type === 'unchanged' && (
                         <div className="diff-unchanged-value">
                             {oldValue || newValue}
                         </div>
-                    )}
+                    )} */}
                 </div>
             ))}
         </div>

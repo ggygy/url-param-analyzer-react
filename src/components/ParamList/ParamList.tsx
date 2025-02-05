@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
-import { ClipboardDocumentIcon, PencilIcon, CheckIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { ClipboardDocumentIcon, PencilIcon, CheckIcon, PlusIcon, TrashIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import './ParamList.css';
+import { useStorage } from '../../hooks/useStorage';
+import { storage } from '../../utils/storage';
+import { useHoverSetting } from '../../hooks/useHoverSetting';
 
 interface Param {
   key: string;
@@ -29,6 +32,8 @@ export const ParamList = ({ url, onChange }: ParamListProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editValues, setEditValues] = useState<Record<string, string>>({});
   const [newParam, setNewParam] = useState<Param>({ key: '', value: '' });
+  const { isStorageEnabled } = useStorage();
+  const { isHoverEnabled } = useHoverSetting();
 
   useEffect(() => {
     if (url) {
@@ -38,6 +43,20 @@ export const ParamList = ({ url, onChange }: ParamListProps) => {
       setEditValues(Object.fromEntries(parsed.map(p => [p.key, p.value])));
     }
   }, [url]);
+
+  useEffect(() => {
+    if (!url || !isStorageEnabled) return;
+    const saved = storage.load(url);
+    if (saved) {
+      setParams(saved.params);
+      setEditValues(saved.editValues);
+    }
+  }, [isStorageEnabled, url]);
+
+  useEffect(() => {
+    if (!url || !isStorageEnabled) return;
+    storage.save(url, { params, editValues });
+  }, [url, params, editValues, isStorageEnabled]);
 
   const handleCopyAll = async () => {
     const text = params.map(p => `${p.key}=${p.value}`).join('&');
@@ -60,6 +79,18 @@ export const ParamList = ({ url, onChange }: ParamListProps) => {
       onChange?.(newParams);
     }
     setIsEditing(!isEditing);
+  };
+
+  const handleOpenInNewTab = () => {
+    if (!url) return;
+    try {
+      const baseUrl = new URL(url);
+      // 使用当前编辑的参数更新 URL
+      baseUrl.search = params.map(p => `${p.key}=${p.value}`).join('&');
+      window.open(baseUrl.toString(), '_blank');
+    } catch (err) {
+      console.error('无法打开URL:', err);
+    }
   };
 
   const handleValueChange = (key: string, value: string) => {
@@ -108,12 +139,19 @@ export const ParamList = ({ url, onChange }: ParamListProps) => {
           <ClipboardDocumentIcon className="icon" />
           复制全部
         </button>
+        <button
+          onClick={handleOpenInNewTab}
+          className="control-button open"
+        >
+          <ArrowTopRightOnSquareIcon className="icon" />
+          打开新标签页
+        </button>
       </div>
 
       <div className="param-list">
         {params.map(({ key }) => (
-          <div key={key} className="param-item">
-            <div className="param-key">{key}:&nbsp;</div>
+          <div key={key} className={`param-item ${isHoverEnabled ? 'hover-enabled' : ''}`}>
+            <div className="param-key">{key}</div>
             <div className="param-value">
               {isEditing ? (
                 <>
@@ -131,6 +169,7 @@ export const ParamList = ({ url, onChange }: ParamListProps) => {
                 <div className='edit-value'>{editValues[key]}</div>
               )}
             </div>
+            {isHoverEnabled && <div className="param-tooltip">{editValues[key]}</div>}
           </div>
         ))}
 

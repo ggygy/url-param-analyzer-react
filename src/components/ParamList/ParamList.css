@@ -55,6 +55,11 @@
     border-color: #e5e7eb;
 }
 
+.control-button.open {
+    color: #3c3c3c;
+    border-color: #e5e7eb;
+}
+
 .icon {
     width: 14px;
     height: 14px;
@@ -95,16 +100,49 @@
     background: white;
     border-radius: 6px;
     transition: background-color 0.2s;
+    position: relative;
 }
 
 .param-item:hover {
     background-color: var(--bg-hover);
 }
 
+.param-tooltip {
+    display: none;
+    position: absolute;
+    height: fit-content;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    white-space: wrap;
+    word-break: break-all;
+    z-index: 1000;
+}
+
+.param-item:hover .param-tooltip {
+    display: block;
+}
+
+.param-item.hover-enabled .param-tooltip {
+    display: none;
+}
+
+.param-item.hover-enabled:hover .param-tooltip {
+    display: block;
+}
+
+.param-item:last-child .param-tooltip {
+    top: auto;
+    bottom: 100%;
+}
+
 /* 参数键样式 */
 .param-key {
     font-weight: 500;
-    max-width: 95px;
+    max-width: 100px;
     color: var(--primary-color);
     font-size: 14px;
     white-space: normal;
