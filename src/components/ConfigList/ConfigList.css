@@ -1,0 +1,263 @@
+.config-list-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10001;
+}
+
+.config-list-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative; /* 添加这行 */
+}
+
+.config-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-right: 40px; /* 为关闭按钮留出空间 */
+}
+
+.config-list-title {
+  margin: 0;
+  color: #2d3748;
+  font-size: 18px;
+}
+
+.widget-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  z-index: 1;
+}
+
+.config-item {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.config-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.config-item-selected {
+  border-color: #1a73e8;
+  background: #f8f9ff;
+}
+
+.add-config-form {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.add-config-form input,
+.add-config-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.add-config-form textarea {
+  height: 100px;
+  font-family: monospace;
+}
+
+.add-config-form button {
+  width: 100%;
+  padding: 12px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+}
+
+.add-config-form button:hover {
+  background: #1557b0;
+}
+
+.add-config-form button:active {
+  transform: translateY(1px);
+}
+
+.add-config-form button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.config-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.config-edit-form input,
+.config-edit-form textarea,
+.config-edit-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.config-edit-form input:focus,
+.config-edit-form textarea:focus,
+.config-edit-form select:focus {
+  border-color: #1a73e8;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
+}
+
+.config-edit-form textarea {
+  min-height: 120px;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  line-height: 1.4;
+}
+
+.config-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.config-actions button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #f3f4f6;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.config-actions button:hover {
+  background: #e5e7eb;
+  border-color: #ccc;
+}
+
+.config-button-active {
+  background: #1a73e8 !important;
+  color: white !important;
+  border-color: #1a73e8 !important;
+}
+
+.config-button-active:hover {
+  background: #1557b0 !important;
+  border-color: #1557b0 !important;
+}
+
+.config-url {
+  color: #666;
+  margin: 8px 0;
+  word-break: break-all;
+}
+
+.config-fields {
+  font-size: 14px;
+  color: #666;
+}
+
+.method-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background: white;
+  font-size: 14px;
+}
+
+.config-method {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #374151;
+  margin-left: 8px;
+}
+
+.field-input-container {
+  margin-bottom: 12px;
+}
+
+.field-input-help {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+  padding-left: 4px;
+}
+
+.field-tag {
+  display: inline-block;
+  background: #e5e7eb;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin: 2px;
+  font-size: 12px;
+  color: #374151;
+}
+
+.field-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.field-column {
+  flex: 1;
+}
+
+.field-column label {
+  display: block;
+  font-size: 12px;
+  color: #4a5568;
+  margin-bottom: 4px;
+}
+
+.field-column input {
+  width: 100%;
+}
+
+.config-fields .field-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.field-tag-description {
+  color: #666;
+  font-size: 11px;
+  font-style: italic;
+}

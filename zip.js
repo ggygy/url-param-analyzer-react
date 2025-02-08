@@ -1,13 +1,12 @@
-import { createRequire } from 'module';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const require = createRequire(import.meta.url);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const AdmZip = require('adm-zip');
+import AdmZip from 'adm-zip';
+import { resolve } from 'path';
 
 const zip = new AdmZip();
-zip.addLocalFolder('./dist');
-zip.writeZip('./dist/chrome-extension.zip');
+const outputFile = "extension.zip";
+
+const folderToZip = resolve('dist');
+
+zip.addLocalFolder(folderToZip);
+zip.writeZip(outputFile);
+
+console.log(`Created ${outputFile} successfully`);

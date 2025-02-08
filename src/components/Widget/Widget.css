@@ -1,0 +1,167 @@
+.widget-error {
+  padding: 10px;
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 4px;
+  color: #c00;
+  margin-top: 15px;
+}
+
+.widget-container {
+  background: white;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.widget-title {
+  margin: 0 0 20px 0;
+  color: #2d3748;
+  font-size: 18px;
+}
+
+.widget-content {
+  font-family: monospace;
+  white-space: pre-wrap;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.widget-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.widget-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  z-index: 1; /* 确保在顶层 */
+}
+
+.widget-input-group {
+  margin-bottom: 15px;
+}
+
+.widget-input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.widget-input-group input,
+.widget-input-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.widget-input-group textarea {
+  min-height: 100px;
+  font-family: monospace;
+}
+
+.widget-submit {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.widget-submit:hover {
+  background: #1557b0;
+}
+
+.widget-response {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.widget-response h4 {
+  margin: 0 0 10px 0;
+  color: #2d3748;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.widget-response pre {
+  margin: 0;
+  padding: 10px;
+  background: white;
+  border: 1px solid #edf2f7;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #1a202c;
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-right: 40px; /* 为关闭按钮留出空间 */
+}
+
+.widget-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.widget-button {
+  background: #f3f4f6;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.widget-button:hover {
+  background: #e5e7eb;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+}
+
+.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.widget-submit.loading {
+  background: #70a5e3;
+}

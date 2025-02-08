@@ -1,0 +1,255 @@
+.response-panel-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: white;
+  padding: 4px;
+  border-radius: 0 0 8px 0;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+  min-width: 320px;
+  max-width: 380px;
+  max-height: 500px;
+  overflow-y: auto;
+  z-index: 10002;
+  animation: slideDown 0.3s ease;
+  transition: transform 0.3s ease;
+}
+
+.response-panel-container.collapsed {
+  transform: translateY(-100%);
+}
+
+.response-panel-collapse-btn {
+  background: none;
+  border: none;
+  width: 40px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #000;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  padding: 0;
+  margin-left: 8px;
+}
+
+.response-panel-collapse-btn:hover {
+  background: #f3f4f6;
+  color: #333;
+}
+
+.response-panel-content-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.response-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.response-panel-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.response-panel-close {
+  padding: 4px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #666;
+}
+
+.response-panel-close:hover {
+  color: #000;
+}
+
+.response-panel-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.response-panel-button {
+  background: #f3f4f6;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #374151;
+  transition: all 0.2s;
+}
+
+.response-panel-button:hover {
+  background: #e5e7eb;
+  border-color: #ccc;
+}
+
+.response-panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  max-height: 500px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.response-panel-content.collapsed {
+  max-height: 0;
+  opacity: 0;
+}
+
+.response-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.response-field {
+  padding: 2px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  transition: background-color 0.2s;
+}
+
+.response-field:hover {
+  background: #dadadb;
+}
+
+.response-field-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 4px;
+}
+
+.response-field-value {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #1a202c;
+  background: white;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #edf2f7;
+  word-break: break-all;
+}
+
+.response-raw {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  color: #1a202c;
+}
+
+.response-field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.response-field-description {
+  font-size: 12px;
+  margin-left: 4px;
+  color: #2d3748;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* 添加滚动条样式 */
+.response-panel-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.response-panel-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.response-panel-container::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 2px;
+}
+
+.response-panel-container::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* 添加响应式样式 */
+@media screen and (max-width: 768px) {
+  .response-panel-container {
+    width: 95%;
+    padding: 16px;
+  }
+
+  .response-field {
+    padding: 8px;
+  }
+
+  .response-panel-button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+
+.config-response-section {
+  margin-bottom: 4px;
+  padding: 2px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.config-response-header {
+  font-weight: 600;
+  color: #2d3748;
+  padding: 1px 4px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.response-panel-empty {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  background: #f8fafc;
+  border-radius: 6px;
+  border: 1px dashed #e2e8f0;
+}
