@@ -12,10 +12,10 @@ export const handleApiRequest = async (
     error?: string;
 }> => {
     try {
-        // 检查缓存是否存在且未过期（1小时内）
+        // 检查缓存是否存在且未过期（5分钟内）
         const cached = responseCache[config.id];
         const now = Date.now();
-        if (cached && now - cached.timestamp < 3600000) {
+        if (cached && now - cached.timestamp < 300000) {
             return {
                 data: cached.data,
                 cache: responseCache

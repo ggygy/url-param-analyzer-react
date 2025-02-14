@@ -1,0 +1,57 @@
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.config-form input,
+.config-form textarea,
+.config-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.config-form input:focus,
+.config-form textarea:focus,
+.config-form select:focus {
+  border-color: #1a73e8;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
+}
+
+.config-form textarea {
+  min-height: 120px;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+.config-form button {
+  padding: 12px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.config-form button:hover {
+  background: #1557b0;
+}
+
+.config-form button:active {
+  transform: translateY(1px);
+}
+
+.config-form button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

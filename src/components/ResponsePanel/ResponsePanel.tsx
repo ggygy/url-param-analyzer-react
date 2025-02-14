@@ -46,7 +46,6 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
 
             // 分割路径
             const parts = normalizedPath.split('.');
-
             // 递归获取值
             return parts.reduce((acc, part) => {
                 if (acc === null || acc === undefined) return acc;

@@ -1,0 +1,31 @@
+.field-input-container {
+  margin-bottom: 12px;
+}
+
+.field-input-help {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+  padding-left: 4px;
+}
+
+.field-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.field-column {
+  flex: 1;
+}
+
+.field-column label {
+  display: block;
+  font-size: 12px;
+  color: #4a5568;
+  margin-bottom: 4px;
+}
+
+.field-column input {
+  width: 100%;
+}

@@ -4,6 +4,7 @@ import './ParamList.css';
 import { useStorage } from '../../hooks/useStorage';
 import { storage } from '../../utils/storage';
 import { useHoverSetting } from '../../hooks/useHoverSetting';
+import { useIncognitoSetting } from '../../hooks/useIncognitoSetting';
 
 interface Param {
   key: string;
@@ -34,6 +35,7 @@ export const ParamList = ({ url, onChange }: ParamListProps) => {
   const [newParam, setNewParam] = useState<Param>({ key: '', value: '' });
   const { isStorageEnabled } = useStorage();
   const { isHoverEnabled } = useHoverSetting();
+  const { isIncognitoEnabled } = useIncognitoSetting();
 
   useEffect(() => {
     if (url) {
@@ -81,17 +83,23 @@ export const ParamList = ({ url, onChange }: ParamListProps) => {
     setIsEditing(!isEditing);
   };
 
-  const handleOpenInNewTab = () => {
+  const handleOpenInNewTab = async () => {
     if (!url) return;
     try {
-      const baseUrl = new URL(url);
-      // 使用当前编辑的参数更新 URL
-      baseUrl.search = params.map(p => `${p.key}=${p.value}`).join('&');
-      window.open(baseUrl.toString(), '_blank');
+        const baseUrl = new URL(url);
+        baseUrl.search = params.map(p => `${p.key}=${p.value}`).join('&');
+        const urlText = baseUrl.toString();
+
+        if (isIncognitoEnabled) {
+            await navigator.clipboard.writeText(urlText);
+            alert('链接已复制到剪贴板，请在无痕窗口中打开');
+        } else {
+            window.open(urlText, '_blank');
+        }
     } catch (err) {
-      console.error('无法打开URL:', err);
+        console.error('无法处理URL:', err);
     }
-  };
+};
 
   const handleValueChange = (key: string, value: string) => {
     setEditValues(prev => ({ ...prev, [key]: value }));

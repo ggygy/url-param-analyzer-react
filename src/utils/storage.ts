@@ -1,5 +1,6 @@
 const STORAGE_ENABLED_KEY = 'param_storage_enabled';
 const HOVER_ENABLED_KEY = 'param_hover_enabled';
+const INCOGNITO_ENABLED_KEY = 'param_incognito_enabled';
 
 interface ParamData {
     params: Array<{ key: string; value: string }>;
@@ -56,5 +57,13 @@ export const storageSettings = {
 
     setHoverEnabled(enabled: boolean): void {
         localStorage.setItem(HOVER_ENABLED_KEY, String(enabled));
+    },
+
+    getIncognitoEnabled(): boolean {
+        return localStorage.getItem(INCOGNITO_ENABLED_KEY) === 'true';
+    },
+
+    setIncognitoEnabled(enabled: boolean): void {
+        localStorage.setItem(INCOGNITO_ENABLED_KEY, String(enabled));
     }
 };

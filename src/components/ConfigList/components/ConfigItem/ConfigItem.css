@@ -1,0 +1,76 @@
+.config-item {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.config-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.config-item-selected {
+  border-color: #1a73e8;
+  background: #f8f9ff;
+}
+
+.config-item h4 {
+  margin: 0 0 8px 0;
+  color: #2d3748;
+}
+
+.config-method {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #374151;
+  margin-left: 8px;
+}
+
+.config-url {
+  color: #666;
+  margin: 8px 0;
+  word-break: break-all;
+}
+
+.config-fields {
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+}
+
+.config-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.config-actions button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #f3f4f6;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.config-actions button:hover {
+  background: #e5e7eb;
+  border-color: #ccc;
+}
+
+.config-button-active {
+  background: #1a73e8 !important;
+  color: white !important;
+  border-color: #1a73e8 !important;
+}
+
+.config-button-active:hover {
+  background: #1557b0 !important;
+  border-color: #1557b0 !important;
+}

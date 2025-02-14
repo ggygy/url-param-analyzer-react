@@ -2,12 +2,14 @@ import { FunctionComponent, useState } from "react";
 import { useStorage } from "../../hooks/useStorage";
 import { storage } from "../../utils/storage";
 import { useHoverSetting } from "../../hooks/useHoverSetting";
+import { useIncognitoSetting } from "../../hooks/useIncognitoSetting";
 import './Header.css';
 
 const Header: FunctionComponent = () => {
     const { isStorageEnabled, setStorageEnabled } = useStorage();
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const { isHoverEnabled, toggleHoverEnabled } = useHoverSetting();
+    const { isIncognitoEnabled, toggleIncognitoEnabled } = useIncognitoSetting();
 
     const handleClearCache = () => {
         if (window.confirm("确定要清除缓存吗？")) {
@@ -40,6 +42,14 @@ const Header: FunctionComponent = () => {
                                 onChange={(e) => toggleHoverEnabled(e.target.checked)}
                             />
                             <span className="setting-label">启用 Hover 显示</span>
+                        </label>
+                        <label className="setting-toggle">
+                            <input
+                                type="checkbox"
+                                checked={isIncognitoEnabled}
+                                onChange={(e) => toggleIncognitoEnabled(e.target.checked)}
+                            />
+                            <span className="setting-label">以无痕模式打开新标签页</span>
                         </label>
                         <button className="clear-cache-button" onClick={handleClearCache}>
                             清除缓存
