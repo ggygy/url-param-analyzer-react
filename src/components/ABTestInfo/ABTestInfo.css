@@ -1,0 +1,156 @@
+.ABTestInfo-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  animation: fadeIn 0.2s ease forwards;
+  backdrop-filter: blur(2px);
+}
+
+.ABTestInfo-modal {
+  background: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transform: translateY(30px);
+  opacity: 0;
+  animation: slideUp 0.3s ease 0.1s forwards;
+  margin: 20px;
+}
+
+.ABTestInfo-close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 5px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.ABTestInfo-close:hover {
+  color: #333;
+}
+
+.ABTestInfo-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  background: #f8f9fa;
+  border-radius: 8px 8px 0 0;
+}
+
+.ABTestInfo-title {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+}
+
+.ABTestInfo-content {
+  padding: 20px;
+  overflow-y: auto;
+  max-height: calc(80vh - 80px);
+}
+
+.ABTestInfo-content pre {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  margin-top: 10px;
+}
+
+.ABTestInfo-content strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+  to { 
+    opacity: 1;
+    backdrop-filter: blur(2px);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 添加关闭动画 */
+.ABTestInfo-modal-overlay.closing {
+  animation: fadeOut 0.2s ease forwards;
+}
+
+.ABTestInfo-modal-overlay.closing .ABTestInfo-modal {
+  animation: slideDown 0.2s ease forwards;
+}
+
+@keyframes fadeOut {
+  from { 
+    opacity: 1;
+    backdrop-filter: blur(2px);
+  }
+  to { 
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .ABTestInfo-modal {
+    width: calc(100% - 40px);
+    max-height: calc(100vh - 40px);
+  }
+}
+
+.ABTestInfo-loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.ABTestInfo-error {
+  text-align: center;
+  padding: 20px;
+  color: #dc3545;
+}

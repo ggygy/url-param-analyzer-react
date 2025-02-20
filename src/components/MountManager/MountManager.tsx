@@ -1,10 +1,14 @@
 import React, { CSSProperties } from 'react';
 import { MountPoint } from './MountPoint';
 
+interface MountManagerProps {
+  visible: boolean;
+}
+
 const mountConfigs = [
   {
     id: 'data-analyzer-button',
-    selectors: ['.header-nav', '.head-facility'],
+    selectors: ['.header-nav'],
     content: '一个数据分析器',
     style: {
       position: 'relative' as const,
@@ -22,7 +26,9 @@ const mountConfigs = [
   // 可以在这里添加更多的挂载配置
 ];
 
-export const MountManager: React.FC = () => {
+export const MountManager: React.FC<MountManagerProps> = ({ visible }) => {
+  if (!visible) return null;
+  
   return (
     <>
       {mountConfigs.map((config) => (

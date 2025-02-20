@@ -20,9 +20,9 @@
 }
 
 .widget-title {
-  margin: 0 0 20px 0;
-  color: #2d3748;
+  margin: 0;
   font-size: 18px;
+  color: #333;
 }
 
 .widget-content {
@@ -128,13 +128,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
   padding-right: 40px; /* 为关闭按钮留出空间 */
+  padding: 15px 20px;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .widget-actions {
+  padding: 10px 20px;
+  border-bottom: 1px solid #e5e5e5;
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .widget-button {

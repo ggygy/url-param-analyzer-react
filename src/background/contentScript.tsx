@@ -8,6 +8,7 @@ import { createFloatingButton } from '../utils/contentScriptTool/createFloatingB
 import { ResponseCache } from '../utils/contentScriptTool/types';
 import { clearOldCache } from '../utils/contentScriptTool/cacheManager';
 import { StorageManager } from '../utils/contentScriptTool/storageManager';
+import { PriceCompareWidget } from '../components/PriceCompareWidget/PriceCompareWidget';
 import { MountManager } from '../components/MountManager/MountManager';
 
 // 创建弹层容器
@@ -37,6 +38,20 @@ const init = async () => {
   let showResponsePanel = true;  // 默认显示
   let responseCache: ResponseCache = {};
   let activeConfigIds: string[] = [];  // 新增：存储活动配置ID
+  let showPriceCompare = false;
+  let mountVisible = true; // 默认为 true
+
+  // 加载初始状态
+  const { mountVisible: storedMountVisible } = await chrome.storage.local.get('mountVisible');
+  if (storedMountVisible !== undefined) {
+    mountVisible = storedMountVisible;
+  }
+
+  const toggleMount = async () => {
+    mountVisible = !mountVisible;
+    await chrome.storage.local.set({ mountVisible });
+    renderApp();
+  };
 
   const toggleConfigActive = async (configId: string) => {
     const index = activeConfigIds.indexOf(configId);
@@ -76,7 +91,7 @@ const init = async () => {
   const renderApp = () => {
     root.render(
       <>
-        <MountManager />
+        <MountManager visible={mountVisible} />
         <Widget 
           isVisible={isVisible}
           onClose={() => {
@@ -93,6 +108,19 @@ const init = async () => {
             renderApp();
           }}
           showResponsePanel={showResponsePanel}
+          onShowPriceCompare={() => {
+            showPriceCompare = true;
+            renderApp();
+          }}
+          mountVisible={mountVisible}
+          onToggleMount={toggleMount}
+        />
+        <PriceCompareWidget
+          isVisible={showPriceCompare}
+          onClose={() => {
+            showPriceCompare = false;
+            renderApp();
+          }}
         />
         <ConfigList
           isVisible={showConfigList}

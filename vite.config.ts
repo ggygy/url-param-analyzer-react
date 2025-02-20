@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import { resolve } from 'path';
 
 export default defineConfig(({ mode }) => {
-  // 根据环境变量判断是构建 contentScript 还是主应用
-  const isContentScript = process.env.VITE_TARGET === 'content';
+  const target = process.env.VITE_TARGET || 'main';
   
   return {
     plugins: [react({
@@ -24,40 +24,40 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       emptyOutDir: false,
-      // 始终为开发模式启用 sourcemap
       sourcemap: mode === 'development',
       rollupOptions: {
-        input: isContentScript 
-          ? { contentScript: './src/background/contentScript.tsx' }
-          : { main: './index.html' } as Record<string, string>,
+        input: target === 'main' 
+          ? { main: resolve(__dirname, 'index.html') }
+          : {
+              background: resolve(__dirname, 'src/background/background.ts'),
+              contentScript: resolve(__dirname, 'src/background/contentScript.tsx')
+            },
         output: {
-          // 确保 sourcemap 配置对 contentScript 生效
-          sourcemapFileNames: '[name].js.map', // 指定 sourcemap 文件名格式
-          sourcemap: mode === 'development' ? 'inline' : false, // 开发模式使用 inline sourcemap
-          entryFileNames: () => {
-            // content script 相关文件输出到根目录
-            if (isContentScript) {
+          sourcemapFileNames: '[name].js.map',
+          entryFileNames: (chunkInfo) => {
+            if (target !== 'main' || chunkInfo.name === 'background' || chunkInfo.name === 'contentScript') {
               return '[name].js';
             }
             return 'assets/[name].[hash].js';
           },
           chunkFileNames: () => {
-            if (isContentScript) {
-              return '[name].js';
+            if (target === 'main') {
+              return 'assets/[name]-[hash].js';
             }
-            return 'assets/[name]-[hash].js';
+            return '[name]-[hash].js';
           },
           assetFileNames: (assetInfo) => {
-            // CSS 文件特殊处理
             if (assetInfo.name?.endsWith('.css')) {
-              return isContentScript ? 'contentScript.css' : 'assets/[name].[hash].[ext]';
+              if (target !== 'main') {
+                return '[name].css';
+              }
+              return 'assets/[name].[hash].[ext]';
             }
             return 'assets/[name].[ext]';
           }
         },
         preserveEntrySignatures: 'strict'
       },
-      // 确保 CSS 被分离出来
       cssCodeSplit: true,
       minify: mode === 'production',
     },

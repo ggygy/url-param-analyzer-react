@@ -25,8 +25,19 @@ export const MountPoint: React.FC<MountPointProps> = ({
     content: React.ReactNode;
   }>>([]);
 
+  // 清理函数
+  const cleanupMountPoints = () => {
+    // 清理所有带有特定类名前缀的挂载点
+    document.querySelectorAll(`[class^="${className}-"]`).forEach(element => {
+      element.parentElement?.removeChild(element);
+    });
+  };
+
   useEffect(() => {
     const createMountPoints = () => {
+      // 先清理现有的挂载点
+      cleanupMountPoints();
+
       const newMountPoints: Array<{
         element: HTMLElement;
         content: React.ReactNode;
@@ -37,6 +48,7 @@ export const MountPoint: React.FC<MountPointProps> = ({
         if (target || fallbackToBody) {
           const container = document.createElement('div');
           container.className = `${className}-${configIndex}`;
+          container.setAttribute('data-mount-point', 'true');
           Object.assign(
             container.style,
             defaultStyle,
@@ -64,22 +76,10 @@ export const MountPoint: React.FC<MountPointProps> = ({
       setMountPoints(newMountPoints);
     };
 
-    const init = () => {
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', createMountPoints);
-      } else {
-        createMountPoints();
-      }
-    };
+    createMountPoints();
 
-    init();
-
-    return () => {
-      mountPoints.forEach(({ element }) => {
-        element.parentElement?.removeChild(element);
-      });
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // 组件卸载时清理
+    return cleanupMountPoints;
   }, [configs, fallbackToBody, className, defaultStyle]);
 
   return (

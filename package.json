@@ -10,13 +10,15 @@
     "hmr": "nodemon --watch dist --ext js,html,css --exec 'chrome-extension-reloader'",
     "build:content": "cross-env VITE_TARGET=content vite build",
     "build:main": "cross-env VITE_TARGET=main vite build",
-    "build": "npm run clean && tsc && npm-run-all -s build:content build:main && node zip.js",
-    "clean": "rimraf dist",
+    "build": "npm run clean && npm-run-all -s build:content build:main && node zip.js",
+    "clean": "node scripts/clean.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "fzstd": "^0.1.1",
+    "pako": "^2.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
