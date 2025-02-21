@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { fetchData } from '../../services/api';
 import { MountManager } from '../MountManager/MountManager';
 import './Widget.css';
 import { ABTestInfo } from '../ABTestInfo/ABTestInfo';
+import { getNFESData } from '../../utils/getNFESData';
 
 interface WidgetProps {
   isVisible: boolean;
@@ -34,6 +35,17 @@ export const Widget: React.FC<WidgetProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [currentResponse, setCurrentResponse] = useState<any>(null);
   const [showABTest, setShowABTest] = useState(false);
+  const [vid, setVid] = useState<string>('');
+  
+  useEffect(() => {
+    const fetchNFESData = async () => {
+      const data = await getNFESData();
+      const ubtVid = data?.query?.envObj?.cookie?.UBT_VID || '';
+      setVid(ubtVid);
+    };
+    
+    fetchNFESData();
+  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -95,6 +107,12 @@ export const Widget: React.FC<WidgetProps> = ({
           <button className="widget-close" onClick={onClose}>&times;</button>
           <div className="widget-header">
             <h3 className="widget-title">API 请求工具</h3>
+            {vid && (
+              <div className="widget-vid">
+                <span className="widget-vid-label">VID:</span>
+                <span className="widget-vid-value">{vid}</span>
+              </div>
+            )}
           </div>
           <div className="widget-actions">
             <button

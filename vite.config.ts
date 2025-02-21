@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       emptyOutDir: false,
-      sourcemap: mode === 'development',
+      sourcemap: mode === 'development' ? 'inline' : false,
       rollupOptions: {
         input: target === 'main' 
           ? { main: resolve(__dirname, 'index.html') }
@@ -33,7 +33,12 @@ export default defineConfig(({ mode }) => {
               contentScript: resolve(__dirname, 'src/background/contentScript.tsx')
             },
         output: {
-          sourcemapFileNames: '[name].js.map',
+          sourcemapFileNames: (chunkInfo) => {
+            if (target !== 'main' || chunkInfo.name === 'background' || chunkInfo.name === 'contentScript') {
+              return `${chunkInfo.name}.js.map`;
+            }
+            return 'assets/[name].[hash].js.map';
+          },
           entryFileNames: (chunkInfo) => {
             if (target !== 'main' || chunkInfo.name === 'background' || chunkInfo.name === 'contentScript') {
               return '[name].js';

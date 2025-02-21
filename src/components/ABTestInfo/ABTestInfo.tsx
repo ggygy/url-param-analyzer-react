@@ -1,20 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
-import { executeScriptInActivePage } from '../../utils/chrome';
-import { getABTestDataFromPage } from '../../scripts/getABTestData';
+import { FixedSizeList } from 'react-window';
 import './ABTestInfo.css';
+import { getABTestData } from '../../scripts/getABTestData';
 
-interface ABTestData {
-  showAdvantagePositionInfoAB?: {
-    expCode: string;
-    description: string;
-    result: {
-      expCode: string;
-      version: string;
-      [key: string]: any;
-    };
-    [key: string]: any;
-  };
+interface ABTestItem {
+  experimentName: string;
+  result: string;
+  sectionId: string;
 }
 
 interface ABTestInfoProps {
@@ -23,7 +16,7 @@ interface ABTestInfoProps {
 }
 
 export const ABTestInfo: React.FC<ABTestInfoProps> = ({ isVisible, onClose }) => {
-  const [abTestData, setABTestData] = useState<ABTestData | null>(null);
+  const [abTestData, setABTestData] = useState<ABTestItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,7 +30,7 @@ export const ABTestInfo: React.FC<ABTestInfoProps> = ({ isVisible, onClose }) =>
     setIsLoading(true);
     setError(null);
     try {
-      const data = await executeScriptInActivePage(getABTestDataFromPage);
+      const data = await getABTestData();
       setABTestData(data);
     } catch (err) {
       setError('获取 AB 测试数据失败');
@@ -45,6 +38,58 @@ export const ABTestInfo: React.FC<ABTestInfoProps> = ({ isVisible, onClose }) =>
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const fetchABTestUrl = async (experimentName: string) => {
+    try {
+      const response = await chrome.runtime.sendMessage({
+        type: 'fetchABTest',
+        experimentName
+      });
+      
+      if (response.success) {
+        const data = response?.data?.data?.[0] as any ?? {};
+        window.open(`http://abtesting.ctripcorp.com/#/index-detail?id=${data.idOfExp}&expId=${data.expId}`);
+      } else {
+        setError(response.error || '获取实验详情失败');
+      }
+    } catch (err) {
+      setError('获取实验详情失败');
+      console.error(err);
+    }
+  }
+
+  const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
+    const item = abTestData[index];
+    return (
+      <div style={style}>
+        {renderABTestItem(item)}
+      </div>
+    );
+  };
+
+  const renderABTestItem = (item: ABTestItem) => {
+    return (
+      <div 
+        className="ABTestInfo-item" 
+        onClick={() => fetchABTestUrl(item.experimentName)}
+      >
+        <ul className="ABTestInfo-item-list">
+          <li>
+            <span className="ABTestInfo-label">实验名称：</span>
+            <span className="ABTestInfo-value">{item.experimentName}</span>
+          </li>
+          <li>
+            <span className="ABTestInfo-label">实验结果：</span>
+            <span className="ABTestInfo-value">{item.result}</span>
+          </li>
+          <li>
+            <span className="ABTestInfo-label">区段 ID：</span>
+            <span className="ABTestInfo-value">{item.sectionId}</span>
+          </li>
+        </ul>
+      </div>
+    );
   };
 
   if (!isVisible) return null;
@@ -61,34 +106,17 @@ export const ABTestInfo: React.FC<ABTestInfoProps> = ({ isVisible, onClose }) =>
             <div className="ABTestInfo-loading">加载中...</div>
           ) : error ? (
             <div className="ABTestInfo-error">{error}</div>
-          ) : !abTestData ? (
+          ) : abTestData.length === 0 ? (
             <div>未找到 AB Test 数据</div>
           ) : (
-            <div>
-              <div style={{ marginBottom: '15px' }}>
-                <strong>实验代码：</strong> 
-                {abTestData.showAdvantagePositionInfoAB?.result.expCode}
-              </div>
-              <div style={{ marginBottom: '15px' }}>
-                <strong>版本：</strong> 
-                {abTestData.showAdvantagePositionInfoAB?.result.version}
-              </div>
-              <div style={{ marginBottom: '15px' }}>
-                <strong>描述：</strong> 
-                {abTestData.showAdvantagePositionInfoAB?.description}
-              </div>
-              <div style={{ marginTop: '20px' }}>
-                <strong>完整数据：</strong>
-                <pre style={{ 
-                  background: '#f5f5f5', 
-                  padding: '10px', 
-                  borderRadius: '4px',
-                  overflow: 'auto' 
-                }}>
-                  {JSON.stringify(abTestData, null, 2)}
-                </pre>
-              </div>
-            </div>
+            <FixedSizeList
+              height={400}
+              width="100%"
+              itemCount={abTestData.length}
+              itemSize={120}
+            >
+              {Row}
+            </FixedSizeList>
           )}
         </div>
       </div>
